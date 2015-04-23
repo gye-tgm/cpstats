@@ -1,4 +1,165 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="row">
+        <h1>Profile</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="small-10 columns">
+            <div class="row">
+                <div class="panel">
+                    <h2>About me</h2>
+
+                    <p>
+                        This is some random text that is supposed to describe the user depicted on the right hand side,
+                        however, as there are no genuine users in the system, yet, it is not possible to give more than
+                        this
+                        text.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-6 columns">
+                    <div id="pl-usage" style="width:100%; height:300px;"></div>
+                </div>
+                <div class="small-6 columns">
+                    <div class="small-6 columns" id="oj-usage" style="width:100%; height:300px;"></div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="small-2 columns">
+            <div class="row">
+                <div class="small-12 small-centered column">
+                    <img src="http://codeforces.com/userphoto/title/gdisastery/photo.jpg" border="5">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-12 small-centered column">
+                    <h2>gdisastery</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-12 small-centered column">
+                    <ul class="small-block-grid-4">
+                        <a href="">CF</a>
+                        <a href="">TC</a>
+                        <a href="">HR</a>
+                        <a href="">CC</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('#pl-usage').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Programming language usage'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Programming Language Usage',
+                    data: [
+                        ['C++', 45.0],
+                        ['Java', 26.8],
+                        {
+                            name: 'C#',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        },
+                        ['Python', 8.5],
+                        ['Pascal', 6.2],
+                        ['Others', 0.7]
+                    ]
+                }]
+            });
+        });
+
+
+    </script>
+
+     <script>
+        $(function () {
+            $('#oj-usage').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Online judge usage'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Programming Language Usage',
+                    data: [
+                        ['CF', 45.0],
+                        ['TC', 26.8],
+                        {
+                            name: 'CC',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        },
+                        ['UV', 8.5],
+                        ['HR', 6.2],
+                        ['Others', 0.7]
+                    ]
+                }]
+            });
+        });
+
+
+    </script>
+    {# {% if accounts %}
+                {% for account in accounts %}
+                    <div class="row">
+                        {{ account.oj }}:  <a href="{{ account.url }}">{{ account.handle }}</a>
+                    </div>
+                {% endfor %}
+            {% endif %}#}
 
 {% endblock %}
