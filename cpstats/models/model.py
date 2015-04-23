@@ -64,6 +64,13 @@ class OnlineJudge(Base):
     problemset = relationship("Task", backref='oj')
 
 
+VERDICT_AC = 0
+VERDICT_WA = 1
+VERDICT_TLE = 2
+VERDICT_RTE = 3
+VERDICT_CE = 4
+
+
 class Submission(Base):
     __tablename__ = 'submission'
     account_id = Column(Integer, ForeignKey('account.id'), primary_key=True)
