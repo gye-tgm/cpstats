@@ -25,6 +25,7 @@ class Account(Base):
     url = Column(String, unique=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     oj_id = Column(Integer, ForeignKey('oj.id'))
+    submitted_tasks = relationship("Submission", backref="account")
 
     discriminator = Column(String(50))
     __mapper_args__ = {'polymorphic_on': discriminator}
@@ -52,6 +53,7 @@ class Task(Base):
     url = Column(String)
     author_id = Column(Integer, ForeignKey('user.id'))
     oj_id = Column(Integer, ForeignKey('oj.id'))
+    contest_id = Column(Integer, ForeignKey('contest.id'))
 
 
 class OnlineJudge(Base):
@@ -88,6 +90,7 @@ class Contest(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     participants = relationship("Participation")
+    tasks = relationship("Task", backref="contest")
 
 
 class Participation(Base):
