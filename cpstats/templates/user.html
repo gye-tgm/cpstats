@@ -7,52 +7,20 @@
 
     <div class="row">
         <dl class="sub-nav">
-            <dt>SELECT:</dt>
-            <dd class="active"><a href="#">General</a></dd>
-            <dd><a href="#">Submissions Stats</a></dd>
-            <dd><a href="#">Solved Tasks</a></dd>
-            <dd class="hide-for-small-only"><a href="#">Achievements</a></dd>
+            <dt>Subnav:</dt>
+            {% for item in subnav %}
+                <dd {% if title == item %} class="active" {% endif %}>
+                    <a href="/user/{{ username }}/{{ item }}">{{ item }}</a>
+                </dd>
+            {% endfor %}
         </dl>
     </div>
 
     <div class="row">
         <div class="small-10 columns">
-            <div class="row">
-                <div class="panel">
-                    <h2>About me</h2>
-
-                    <p>
-                        This is some random text that is supposed to describe the user depicted on the right hand side,
-                        however, as there are no genuine users in the system, yet, it is not possible to give more than
-                        this text.
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="small-4 columns">
-                    <p>
-                        Solved problems: 13/130
-                    </p>
-                </div>
-
-                <div class="small-8 columns">
-                    <div class="progress">
-                        <span class="meter" style="width: 10%"></span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="small-6 columns">
-                    <div id="pl-usage" style="width:100%; height:300px;"></div>
-                </div>
-                <div class="small-6 columns">
-                    <div class="small-6 columns" id="oj-usage" style="width:100%; height:300px;"></div>
-                </div>
-            </div>
+            {% block statscontent %} {% endblock %}
         </div>
+
         <div class="small-2 columns">
             <div class="row">
                 <div class="small-12 small-centered column">
