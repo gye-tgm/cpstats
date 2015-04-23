@@ -4,6 +4,7 @@ Competitive programming stats assembled at one place.
 This is the backend of the CPStats. 
 
 Coming up:
+- Being able to 
 - Task crawler 
 - Task category identifier via intelligent search 
 - Coach

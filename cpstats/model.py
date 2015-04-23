@@ -12,6 +12,7 @@ class User(Base):
     created_tasks = relationship("Task", backref="user")
     accounts = relationship("Account", backref="user")
     achievements = relationship("Achievement", backref="user")
+    participated_contests = relationship("Participation")
 
     def __repr__(self):
         return 'User<%d, "%s">' % (self.id, self.uname)
@@ -69,7 +70,6 @@ class Submission(Base):
     language = Column(String)
 
 
-
 class Achievement(Base):
     __tablename__ = 'achievement'
     id = Column(Integer, primary_key=True)
@@ -80,11 +80,23 @@ class Achievement(Base):
 class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
+    name = Column(String, unique=True)
+
+
+class Contest(Base):
+    __tablename__ = 'contest'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    participants = relationship("Participation")
 
 
 class Participation(Base):
     __tablename__ = 'participation'
-    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
+    contest_id = Column(Integer, ForeignKey('contest.id'), primary_key=True)
+
+    participant = relationship("User")
+    contest = relationship("Contest")
 
 
 engine = create_engine('sqlite:///test.db', echo=False)
