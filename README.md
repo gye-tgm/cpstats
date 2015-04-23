@@ -11,6 +11,7 @@ Coming up:
 - Editorial crawler
 - Contribution system
 - Problem solved database
+- Check whether someone is participating 
 
 Packages needed: 
 
