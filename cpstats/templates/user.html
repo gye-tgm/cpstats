@@ -7,7 +7,6 @@
 
     <div class="row">
         <dl class="sub-nav">
-            <dt>Subnav:</dt>
             {% for item in subnav %}
                 <dd {% if title == item %} class="active" {% endif %}>
                     <a href="/user/{{ username }}/{{ item }}">{{ item }}</a>
@@ -34,8 +33,10 @@
                 </div>
             </div>
 
+            <hr>
+
             <div class="row">
-                <div class="small-12 small-centered column">
+                <div class="small-12 small-text-center column">
                     <ul class="small-block-grid-4">
                         <a href="">CF</a>
                         <a href="">TC</a>
@@ -46,7 +47,7 @@
             </div>
 
             <div class="row">
-                <div class="small-12 small-centered column">
+                <div class="small-12 small-text-center column">
                     <ul class="small-block-grid-4">
                         <a href="">Twitter</a>
                         <a href="">Facebook</a>

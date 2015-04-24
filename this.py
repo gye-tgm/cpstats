@@ -4,7 +4,10 @@ from cpstats.crawl.codeforces import *
 session = Session()
 
 gdis_cf = CodeforcesAccount(handle='gdisastery', url='http://codeforces.com/profile/gdisastery', rating=2059, contribution=12)
+gdisastery = User(uname='gdisastery')
+gdisastery.accounts.append(gdis_cf)
 
+session.add(gdisastery)
 session.add(gdis_cf)
 session.commit()
 

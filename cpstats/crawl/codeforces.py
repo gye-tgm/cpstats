@@ -1,6 +1,9 @@
 from cpstats.crawl.crawler import Crawler
-from cpstats.models.model import VERDICT_AC, VERDICT_WA, VERDICT_TLE, VERDICT_CE, VERDICT_RTE, Submission, Task
+from cpstats.models.model import VERDICT_AC, VERDICT_WA, VERDICT_TLE, VERDICT_CE, VERDICT_RTE, Submission, Task, \
+    VERDICT_OTHER, CodeforcesAccount
 import requests
+import json
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
 
 class CodeforcesCrawler(Crawler):
@@ -25,13 +28,23 @@ class CodeforcesCrawler(Crawler):
     def crawl_submissions(self, handle, count=65536):
         url = "http://codeforces.com/api/user.status?handle=%s&from=1&count=%d" % (handle, count)
         data = requests.get(url).json()
-        for submission in data['result']:
-            s = Submission(verdict=self.vm[submission['verdict']],
-                           language=submission['programmingLanguage'])
-            self.session.add(s)
-        self.session.commit()
-        return True
 
+        user = self.session.query(CodeforcesAccount).filter_by(handle=handle).one()
+
+        for submission in data['result']:
+            try:
+                task = self.session.query(Task).filter_by(name=submission['problem']['name']).one()
+                s = Submission(verdict=self.vm.get(submission['verdict'], VERDICT_OTHER),
+                               language=submission['programmingLanguage'],
+                               submission_time=submission['creationTimeSeconds'],
+                               account_id=user.id,
+                               task_id=task.id)
+                self.session.add(s)
+            except NoResultFound:
+                print(submission['problem']['name'], " not found")
+            except MultipleResultsFound:
+                print(submission['problem']['name'], " too much")
+        self.session.commit()
 
     @staticmethod
     def user_info(handle):
@@ -40,4 +53,4 @@ class CodeforcesCrawler(Crawler):
 
 if __name__ == '__main__':
     c = CodeforcesCrawler()
-    c.crawl_tasks()
+    c.crawl_submissions('gdisastery')

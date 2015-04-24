@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, sessionmaker, mapper
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -69,12 +69,15 @@ VERDICT_WA = 1
 VERDICT_TLE = 2
 VERDICT_RTE = 3
 VERDICT_CE = 4
+VERDICT_OTHER = 99
 
 
 class Submission(Base):
     __tablename__ = 'submission'
     account_id = Column(Integer, ForeignKey('account.id'), primary_key=True)
     task_id = Column(Integer, ForeignKey('task.id'), primary_key=True)
+    submission_time = Column(Integer, primary_key=True)
+
     verdict = Column(Integer)
     language = Column(String)
 
